@@ -1,43 +1,52 @@
 // Container.h
-#ifndef CONTAINER_H
+// Если макрос CONTAINER_H ещё не определён — продолжить компиляцию этого файла
+#ifndef CONTAINER_H // include guard
 #define CONTAINER_H
 
-#include <iostream>
+#include <iostream> // стандартную библиотеку ввода-вывода
 
 class Set {
-private:
-    int* data;
-    int size;
-    int capacity;
+private: // доступ только внутри самого класса
+    int* data; // указатель на массив int, то есть динамический массив
+    int size; // сколько элементов реально находится в массиве
+    int capacity; // общая вместимость массива
 
-    void resize();
-    bool contains(int value) const;
+    void resize(); // объявление приватного метода класса, без реализации
+    bool contains(int value) const; // объявление метода, который проверяет, содержится ли элемент в множестве.
 
-public:
-    Set();
-    Set(const Set& other);
-    ~Set();
-    Set& operator=(const Set& other);
+// публичные специальные методы класса Set. Они управляют жизненным циклом объекта
+public: // доступно извне класса
+    Set(); // Конструктор по умолчанию Создаёт новый пустой объект Set.
+    Set(const Set& other); // Конструктор копирования
+    ~Set(); // Деструктор
+    Set& operator=(const Set& other); // объявление оператора присваивания (копирующего)
 
-    int& operator[](int index);
-    bool operator==(const Set& other) const;
-    bool operator>(int value) const;
-    Set operator-(int n) const;
+    // The Rule of Three
 
-    void add(int value);
-    void print() const;
+    // нужно реализовать вручную
+    // Если использовать дефолтный (= поверхностный) оператор: Указатели data в a и b будут указывать на одну и ту же область памяти
 
-    friend std::ostream& operator<<(std::ostream& os, const Set& set);
-    friend std::istream& operator>>(std::istream& is, Set& set);
+    int& operator[](int index); // перегрузка оператора [] — позволяет обращаться к элементам множества как к массиву
+    bool operator==(const Set& other) const; //  перегрузка оператора сравнения ==, позволяющая сравнивать два множества Set как обычные переменные.
+    bool operator>(int value) const; // перегрузка оператора >, которая здесь используется не в обычном смысле (больше), а как "проверка принадлежности элемента множеству".
+    Set operator-(int n) const; //  перегрузка оператора >, котор используется в смысле "проверка принадлежности элемента множеству".
 
+    void add(int value); // метод для добавления элемента в множество
+    void print() const; // метод класса, предназначенный для печати содержимого множества в консоль
+
+    friend std::ostream& operator<<(std::ostream& os, const Set& set); // перегрузку оператора << для вывода множества в поток
+    friend std::istream& operator>>(std::istream& is, Set& set); // перегрузка оператора ввода >> для считывания данных в объект
+
+
+    //  вложенный класс Iterator внутри Set. Этот класс реализует итератор — специальный объект для последовательного доступа к элементам множества.
     class Iterator {
     private:
-        const Set& set;
-        int pos;
-    public:
-        Iterator(const Set& s);
-        void moveLeft(int n);
-        int current() const;
+        const Set& set; //  ссылка на множество Set
+        int pos; // текущая позиция итератора в массиве
+    public: // методы ниже доступны вне класса
+        Iterator(const Set& s); // Конструктор итератора Принимает ссылку на множество
+        void moveLeft(int n); // Метод «переместиться влево» Сдвигает позицию pos на n шагов назад:
+        int current() const; // Возвращает значение текущего элемента
     };
 };
 
