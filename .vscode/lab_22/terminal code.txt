@@ -1,0 +1,2 @@
+g++ main.cpp Money.cpp -o app
+./app

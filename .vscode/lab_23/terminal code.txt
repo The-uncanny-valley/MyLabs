@@ -1,0 +1,8 @@
+g++ main.cpp Container.cpp -o set_app
+./set_app
+
+Чтобы запустить автопроверку в терминале Linux:
+chmod +x run_test.sh
+
+
+./run_test.sh
