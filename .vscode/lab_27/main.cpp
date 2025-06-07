@@ -4,7 +4,6 @@
 
 using namespace std;
 
-// ввод времени с клавиатуры
 class Time {
     int minutes;
     int seconds;
@@ -61,7 +60,11 @@ public:
 };
 
 istream &operator>>(istream &in, Time &t) {
-    in >> t.minutes >> t.seconds;
+    char delim;
+    in >> t.minutes >> delim >> t.seconds;
+    if (delim != ':') {
+        in.setstate(ios::failbit); // пометить как ошибка
+    }
     t.normalize();
     return in;
 }
@@ -75,8 +78,7 @@ ostream &operator<<(ostream &out, const Time &t) {
 
 const string filename = "times.txt"; // имя файла, где хранятся записи
 
-// сохраняет все объекты Time в файл
-void saveTimesToFile(const vector<Time> &times) {
+void saveTimesToFile(const vector<Time> &times) { // сохраняет все объекты Time в файл
     ofstream fout(filename);
     for (const auto &t : times) {
         fout << t << endl;
@@ -84,20 +86,24 @@ void saveTimesToFile(const vector<Time> &times) {
     fout.close();
 }
 
-// загружает все объекты Time из файла
 vector<Time> loadTimesFromFile() {
+    ifstream in("times.txt");
+    if (!in.is_open()) {
+        cerr << "Не удалось открыть файл.\n";
+        return {};
+    }
+
     vector<Time> times;
-    ifstream fin(filename);
     Time t;
-    while (fin >> t) {
+    while (in >> t) {
         times.push_back(t);
     }
-    fin.close();
+
+    in.close();
     return times;
 }
 
-// удаляет все записи, равные заданному значению
-void deleteEqual(const Time &target) {
+void deleteEqual(const Time &target) { // // удаляет все записи, равные заданному значению
     vector<Time> times = loadTimesFromFile();
     times.erase(remove(times.begin(), times.end(), target), times.end());
     saveTimesToFile(times);
@@ -153,7 +159,9 @@ int main() {
                 saveTimesToFile(times);
                 break;
             case 2:
+
                 times = loadTimesFromFile();
+
                 for (const auto &t : times) t.display();
                 break;
             case 3:
