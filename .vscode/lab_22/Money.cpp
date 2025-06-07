@@ -1,7 +1,7 @@
 #include "Money.h"
 #include <cmath>
 
-// Приватная нормализация
+//  приватная нормализация
 void Money::normalize() {
     if (kopecks >= 100 || kopecks < 0) {
         rubles += kopecks / 100;
@@ -13,13 +13,13 @@ void Money::normalize() {
     }
 }
 
-Money::Money() : rubles(0), kopecks(0) {}
+Money::Money() : rubles(0), kopecks(0) {} // конструктор по умолчанию
 
-Money::Money(long r, int k) : rubles(r), kopecks(k) {
+Money::Money(long r, int k) : rubles(r), kopecks(k) { // конструктор, который принимает рубли и копейки
     normalize();
 }
 
-Money::Money(const Money& other) {
+Money::Money(const Money& other) { // конструктор копирования
     rubles = other.rubles;
     kopecks = other.kopecks;
 }

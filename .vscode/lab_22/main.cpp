@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Money.h"
+#include "Money.h" //  директива препроцессора, которая включает заголовочный файл
 using namespace std;
 
 int main() {
-    Money m1, m2;
+    Money s1, s2;
     double val;
 
     int choice;
@@ -21,27 +21,27 @@ int main() {
         switch (choice) {
             case 1:
                 cout << "Введите первую сумму (формат: рубли,копейки): ";
-                cin >> m1;
+                cin >> s1;
                 break;
             case 2:
                 cout << "Введите вторую сумму (формат: рубли,копейки): ";
-                cin >> m2;
+                cin >> s2;
                 break;
             case 3:
                 cout << "Введите дробное число для прибавления (например, 10.55): ";
                 cin >> val;
-                m1 = m1 + val;
-                cout << "Результат: " << m1 << endl;
+                s1 = s1 + val;
+                cout << "Результат: " << s1 << endl;
                 break;
             case 4:
                 cout << "Сравнение: \n";
-                cout << "m1 > m2: " << (m1 > m2 ? "Да" : "Нет") << endl;
-                cout << "m1 < m2: " << (m1 < m2 ? "Да" : "Нет") << endl;
-                cout << "m1 == m2: " << (m1 == m2 ? "Да" : "Нет") << endl;
+                cout << "s1 > s2: " << (s1 > s2 ? "Да" : "Нет") << endl;
+                cout << "s1 < s2: " << (s1 < s2 ? "Да" : "Нет") << endl;
+                cout << "s1 == s2: " << (s1 == s2 ? "Да" : "Нет") << endl;
                 break;
             case 5:
-                cout << "Первая сумма: " << m1 << endl;
-                cout << "Вторая сумма: " << m2 << endl;
+                cout << "Первая сумма: " << s1 << endl;
+                cout << "Вторая сумма: " << s2 << endl;
                 break;
             case 0:
                 break;
