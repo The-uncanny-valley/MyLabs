@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream> // для работы с файлами
 #include <algorithm> // // для std::remove
+#include <vector>
 
 using namespace std;
 
@@ -74,7 +75,7 @@ ostream &operator<<(ostream &out, const Time &t) {
     return out;
 }
 
-#include <vector>
+
 
 const string filename = "times.txt"; // имя файла, где хранятся записи
 
@@ -159,9 +160,7 @@ int main() {
                 saveTimesToFile(times);
                 break;
             case 2:
-
                 times = loadTimesFromFile();
-
                 for (const auto &t : times) t.display();
                 break;
             case 3:

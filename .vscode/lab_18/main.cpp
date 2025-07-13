@@ -45,7 +45,7 @@ int hashString(const string& key, int M) { // полиномиальное хе�
 }
 
 int countCollisions(const vector<Record>& records, int M) {
-    vector<list<Record>> table(M);
+    vector<list<Record>> table(M); // вектор таблиц
     int collisions = 0;
     for (const auto& r : records) {
         int index = hashString(r.fio, M);
